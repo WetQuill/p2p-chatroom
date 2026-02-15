@@ -1,0 +1,26 @@
+# 二进制文件（编译产物）
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 依赖管理（如果你不使用 vendor 模式，通常不传这个文件夹）
+vendor/
+
+# IDE 配置文件（比如 VS Code 或 GoLand）
+.vscode/
+.idea/
+*.swp
+
+# 操作系统临时文件
+.DS_Store
+Thumbs.db
+
+# 本地调试相关的日志或环境文件
+*.log
+.env
+
+Claude.md
+.claude/
