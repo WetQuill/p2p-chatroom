@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2P Chatroom</title>
+    <style>
+        #chatbox { width: 500px; height: 300px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        .system { color: #888; font-style: italic; }
+        .msg { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h2>P2P 聊天室 - 网页版</h2>
+    <div id="status">连接中...</div>
+    <div id="chatbox"></div>
+    <input type="text" id="messageInput" placeholder="输入消息..." style="width: 400px;">
+    <button onclick="send()">发送</button>
+
+    <script>
+        // 注意：这里的端口需要与你启动的 Go 节点端口一致
+        // index.html 中的 JS 修改
+        const hostname = window.location.hostname; // 自动获取当前访问的 IP 或域名
+        const port = window.location.port; 
+        const socket = new WebSocket(`ws://${hostname}:${port}/ws-ui`);
+
+        const chatbox = document.getElementById('chatbox');
+        const status = document.getElementById('status');
+
+        socket.onopen = () => status.innerText = "已连接到本地节点";
+        socket.onclose = () => status.innerText = "与本地节点断开连接";
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const div = document.createElement('div');
+            div.className = 'msg';
+            
+            if (data.msgType === 2) { // JoinMessage
+                div.className = 'system';
+                div.innerText = `[系统] ${data.userInfo.userName} 已上线`;
+            } else if (data.msgType === 1) { // RegularMessage
+                div.innerText = `[${data.userInfo.userName}] (${data.time}): ${data.content}`;
+            }
+            chatbox.appendChild(div);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        };
+
+        function send() {
+            const input = document.getElementById('messageInput');
+            if (input.value) {
+                // 发送纯文本给后端，由后端封装成 Message 结构体
+                socket.send(input.value);
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "port": 0,
+  "userName": "User-1",
+  "mode": "remote",
+  "signalingServer": "ws://localhost:9000/ws",
+  "stunServers": [
+    "stun:stun.l.google.com:19302",
+    "stun:stun1.l.google.com:19302"
+  ],
+  "enableLocalMode": true
+}
