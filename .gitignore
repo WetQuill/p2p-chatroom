@@ -1,26 +1,133 @@
-# 二进制文件（编译产物）
+# Go项目通用忽略规则
+
+# 编译产物和可执行文件
 bin/
+dist/
+pkg/ipv6/probe/
 *.exe
 *.exe~
+p2p-chatroom.exe
+signaling-server.exe
+ipv6-probe.exe
 *.dll
 *.so
 *.dylib
 
-# 依赖管理（如果你不使用 vendor 模式，通常不传这个文件夹）
-vendor/
+# Go编译中间文件
+*.test
+*.test.exe
+*.prof
+*.out
+coverage.out
+coverage.html
+*.coverprofile
 
-# IDE 配置文件（比如 VS Code 或 GoLand）
+# Go模块和依赖
+vendor/
+go.sum
+
+# IDE和编辑器配置文件
 .vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .idea/
 *.swp
-
-# 操作系统临时文件
+*.swo
+*~
 .DS_Store
 Thumbs.db
 
-# 本地调试相关的日志或环境文件
+# 操作系统临时文件
+*.tmp
+*.temp
 *.log
-.env
+*.pid
+*.pid.lock
 
+# 用户配置文件和敏感数据
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.json
+*.key
+*.pem
+*.crt
+*.cert
+*.db
+*.sqlite
+*.sqlite3
+
+# 项目特定文件
 Claude.md
 .claude/
+更新功能总结.md
+main_integrated.go
+bridge/
+
+# 测试和开发文件
+__debug_bin
+debug/
+test-results/
+*.testlog
+
+# 文档生成
+docs/_build/
+docs/_site/
+_site/
+
+# 其他开发工具
+*.code-workspace
+.project
+.classpath
+.settings/
+
+# 特定于本项目的忽略规则
+# IPv6模块相关的中间文件
+ipv6_cache/
+ipv6_keys/
+peer_ids/
+
+# 信令服务器相关
+server/signaling-server.exe
+
+# 临时端口绑定文件
+*.port
+*.lock
+
+# 性能分析文件
+pprof/
+cpu.prof
+mem.prof
+block.prof
+mutex.prof
+trace.out
+
+# 日志文件
+*.log
+logs/
+log/
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+
+# 图像和二进制资源（除非明确需要）
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.bmp
+*.pdf
